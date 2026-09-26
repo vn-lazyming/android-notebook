@@ -1,0 +1,8 @@
+# never commit target-specific or unreported material
+*.apk
+*.so
+*.dex
+*.i64
+*.bin
+evidence/
+poc/
