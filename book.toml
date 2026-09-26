@@ -1,0 +1,22 @@
+[book]
+title = "Android Notebook"
+description = "How Android actually works, checked on a real production phone. SM-S942B, Android 16."
+authors = ["lazyming"]
+language = "en"
+src = "src"
+
+[output.html]
+default-theme = "ayu"
+preferred-dark-theme = "ayu"
+git-repository-url = "https://github.com/vn-lazyming/android-notebook"
+edit-url-template = "https://github.com/vn-lazyming/android-notebook/edit/main/{path}"
+additional-css = ["theme/custom.css"]
+no-section-label = true
+
+[output.html.fold]
+enable = true
+level = 1
+
+[output.html.search]
+enable = true
+limit-results = 20

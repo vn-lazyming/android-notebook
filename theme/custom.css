@@ -1,0 +1,23 @@
+/* readable measure + serif body, mono stays mono */
+.content main { max-width: 52rem; }
+.content p, .content li, .content td { line-height: 1.7; }
+
+/* tables: this notebook is mostly tables of commands */
+.content table { width: 100%; display: table; }
+.content th { text-align: left; font-weight: 600; }
+.content td code, .content th code { white-space: nowrap; }
+
+/* blockquote as a callout rail */
+.content blockquote {
+  border-left: 3px solid var(--links);
+  background: none;
+  padding-left: 1rem;
+  margin-left: 0;
+  opacity: .9;
+}
+
+/* command blocks a touch tighter */
+.content pre > code { font-size: 0.88em; line-height: 1.55; }
+
+/* de-emphasise the empty rows of the chapter table */
+.content td:empty { opacity: .3; }
