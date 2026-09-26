@@ -6,3 +6,7 @@
 *.bin
 evidence/
 poc/
+_site/
+.jekyll-cache/
+.sass-cache/
+Gemfile.lock

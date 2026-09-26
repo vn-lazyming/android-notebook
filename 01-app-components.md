@@ -1,3 +1,9 @@
+---
+title: 01 · App components
+layout: default
+nav_order: 2
+---
+
 # Surface Explore S26
 
 This is a knowledge note i wrote when exploring the attack surface on the Galaxy S26, can be applied to other Android devices
