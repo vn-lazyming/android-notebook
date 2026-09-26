@@ -11,3 +11,4 @@ _site/
 .sass-cache/
 Gemfile.lock
 book/
+drafts/
