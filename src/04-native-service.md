@@ -1,4 +1,4 @@
-# Native service attack surface
+<!-- # Native service attack surface
 
 in the last chapter we saw `init` start processes at boot from a service block in a .rc file. those processes are what we call native services.
 
@@ -19,7 +19,7 @@ but that is only the first gate.
 
 #### SELinux gate
 
-if you have not met SELinux before, read [our selinux chapter](03-selinux.md) first.
+if you have not met SELinux before, read [our selinux chapter](12-selinux.md) first.
 
 you can find the socket's label in `file_contexts`:
 
@@ -39,4 +39,13 @@ sock_file : write                open /dev/socket/tombstoned_crash
 unix_stream_socket : connectto   reach the process listening behind it
 ```
 
-both gates have to say yes. `0666` with no policy rule is closed. `0600` with a policy rule is also closed, because DAC runs first. reading one of the two and stopping is how you decide something is reachable when it is not.
+both gates have to say yes. `0666` with no policy rule is closed. `0600` with a policy rule is also closed, because DAC runs first. reading one of the two and stopping is how you decide something is reachable when it is not. -->
+
+
+
+# Native service
+
+in the last chapter we saw `init` start processes at boot from a service block in a `.rc` file. those processes are what we call native services.
+
+how about trying to create one native service yourself? to learn. before that you should setup the lab from [the lab chapter](14-lab-cuttlefish.md) first, then come back to this chapter. or if you dont want hands on you can just read it and skip the lab. your choice
+

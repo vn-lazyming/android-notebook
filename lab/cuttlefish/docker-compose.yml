@@ -1,0 +1,40 @@
+# docker compose up -d   -> boots the device
+# docker compose down    -> stops everything
+# from fedora: adb connect localhost:6520 && adb root && adb shell
+# ui: https://localhost:1443
+
+services:
+  cuttlefish:
+    container_name: cflab
+    image: us-docker.pkg.dev/android-cuttlefish-artifacts/cuttlefish-orchestration/cuttlefish-orchestration:stable
+
+    # autostart.sh runs the image's run_services.sh then launch_cvd. replacing
+    # this with sleep infinity loses the cvd-ebr bridge and crosvm fails on tap
+    entrypoint: ["/cf/autostart.sh"]
+
+    # needed to open /dev/kvm
+    privileged: true
+
+    # docker defaults to 1024, crosvm panics with "Too many open files"
+    ulimits:
+      nofile:
+        soft: 524288
+        hard: 524288
+
+    # host kernel, a container cannot fake these
+    devices:
+      - /dev/kvm
+      - /dev/vhost-vsock
+      - /dev/vhost-net
+      - /dev/net/tun
+
+    volumes:
+      - .:/cf
+    working_dir: /cf
+
+    # ports come from EXPOSE in the image's Containerfile, not 8443
+    ports:
+      - "127.0.0.1:1443:1443"                # ui
+      - "127.0.0.1:2443:2443"                # host orchestrator
+      - "127.0.0.1:6520:6520"                # adb
+      - "127.0.0.1:15550-15560:15550-15560"  # webrtc media

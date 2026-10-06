@@ -1,0 +1,7 @@
+# push to /system/etc/init/counterd.rc, init loads it on the next boot
+# this is the eager shape. add `disabled` and `oneshot` to make it lazy instead
+service counterd /system/bin/counterd
+    interface aidl com.example.ICounter/default
+    class main
+    user system
+    group system

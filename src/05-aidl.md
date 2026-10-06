@@ -1,3 +1,0 @@
-# AIDL
-
-coming soon.

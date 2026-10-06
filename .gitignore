@@ -12,3 +12,12 @@ _site/
 Gemfile.lock
 book/
 drafts/
+
+# local working context, not part of the book
+CLAUDE.md
+.claude/
+
+# lab build output, build.sh and fetch-headers.sh regenerate all of it
+lab/*/gen/
+lab/*/aosp-headers/
+lab/native-service/counterd
