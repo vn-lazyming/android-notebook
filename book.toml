@@ -6,11 +6,12 @@ language = "en"
 src = "src"
 
 [output.html]
-default-theme = "ayu"
-preferred-dark-theme = "ayu"
+default-theme = "light"
+preferred-dark-theme = "light"
 git-repository-url = "https://github.com/vn-lazyming/android-notebook"
 edit-url-template = "https://github.com/vn-lazyming/android-notebook/edit/main/{path}"
-additional-css = ["theme/custom.css"]
+additional-css = ["theme/paper-assets.css", "theme/custom.css"]
+additional-js = ["theme/paper.js"]
 no-section-label = true
 
 [output.html.fold]

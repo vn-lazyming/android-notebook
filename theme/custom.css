@@ -1,23 +1,425 @@
-/* readable measure + serif body, mono stays mono */
-.content main { max-width: 52rem; }
-.content p, .content li, .content td { line-height: 1.7; }
+/* ── pen & paper ───────────────────────────────────────────────────────────
+   torn paper on a sage desk, pressed ferns, a coffee ring, pen marks.
+   only on the "light" theme; ayu/navy stay in the theme menu as dark mode.
+   the svg bits (tear, grain, fern…) live in paper-assets.css. */
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Kalam:wght@300;400;700&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap");
 
-/* tables: this notebook is mostly tables of commands */
-.content table { width: 100%; display: table; }
-.content th { text-align: left; font-weight: 600; }
-.content td code, .content th code { white-space: nowrap; }
+html.light {
+  --desk: #c4ccb3;
+  --paper: #f6f1e4;
+  --slip: #ecdfc2;           /* tan paper for code */
+  --note: #f8f0d2;           /* yellowed scrap for > notes */
+  --ink: #34362f;
+  --ink-soft: #808173;
+  --ink-blue: #34507a;
+  --terra: #b5583a;
 
-/* blockquote as a callout rail */
-.content blockquote {
-  border-left: 3px solid var(--links);
-  background: none;
-  padding-left: 1rem;
-  margin-left: 0;
-  opacity: .9;
+  --hand: "Caveat", cursive;
+  --pen: "Kalam", cursive;
+  --type: "Courier Prime", ui-monospace, monospace;
+
+  --torn-mask: var(--torn) 24 fill / 24px round;
+
+  --bg: var(--desk);
+  --fg: var(--ink);
+  --links: var(--ink-blue);
+  --mono-font: var(--type);
+  --inline-code-color: var(--ink);
+  --sidebar-bg: transparent;
+  --sidebar-fg: var(--ink);
+  --sidebar-non-existant: var(--ink-soft);
+  --sidebar-active: var(--ink);
+  --sidebar-spacer: transparent;
+  --sidebar-header-border-color: transparent;
+  --icons: #5e6355;
+  --icons-hover: var(--ink);
+  --theme-popup-bg: var(--paper);
+  --theme-popup-border: #d9cfb5;
+  --theme-hover: #ece3cc;
+  --searchbar-bg: var(--paper);
+  --searchbar-border-color: #cdbf9e;
+  --searchresults-li-bg: #efe6cf;
+  --search-mark-bg: #f1d98a;
+  --quote-bg: transparent;
+  --quote-border: transparent;
+  --scrollbar: #9da38f;
 }
 
-/* command blocks a touch tighter */
-.content pre > code { font-size: 0.88em; line-height: 1.55; }
+/* ── desk ── (on <html> so it covers the whole window, not just the body) */
+html.light {
+  background:
+    radial-gradient(ellipse 120% 90% at 55% 35%, transparent 55%, rgba(48, 58, 36, .16)) fixed,
+    var(--linen),
+    var(--desk);
+}
+html.light body,
+html.light .page-wrapper { background: transparent; }
+html.light ::selection { background: rgba(232, 196, 110, .5); }
 
-/* de-emphasise the empty rows of the chapter table */
-.content td:empty { opacity: .3; }
+html.light .menu-bar,
+html.light .menu-bar.sticky { background: rgba(196, 204, 179, .82); backdrop-filter: blur(6px); border: 0; }
+html.light .menu-title { font-family: var(--hand); font-weight: 600; font-size: 26px; color: var(--ink); }
+
+/* ── the sheet ── */
+html.light .content { position: relative; z-index: 0; }
+html.light .content main {
+  position: relative;
+  z-index: 0;
+  max-width: 820px;
+  margin: 22px auto 70px;
+  padding: 46px 70px 64px;
+  font-family: var(--pen);
+  font-size: 18px;
+  line-height: 1.75;
+  color: var(--ink);
+}
+/* soft shadow, a bit smaller than the paper so it hides under the tear */
+html.light .content main::before {
+  content: "";
+  position: absolute;
+  inset: 8px 6px 4px;
+  z-index: -1;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(40, 50, 30, .2), 0 14px 30px -12px rgba(40, 50, 30, .45);
+}
+/* the paper itself */
+html.light .content main::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    var(--coffee) right -70px top 90px / 230px no-repeat,
+    var(--mottle),
+    var(--grain),
+    var(--paper);
+  background-blend-mode: multiply;
+  box-shadow: inset 0 0 26px rgba(160, 130, 80, .2);
+  -webkit-mask-box-image: var(--torn-mask);
+}
+
+/* page header: file path + No., filled in by paper.js */
+html.light .nb-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 0 30px;
+  padding-bottom: 10px;
+  font: 13px/1.4 var(--type);
+  color: var(--ink-soft);
+  background: var(--underline) left bottom / 100% 8px no-repeat;
+}
+html.light .nb-head .no {
+  flex: none;
+  white-space: nowrap;
+  padding: 4px 14px;
+  font-family: var(--hand);
+  font-size: 19px;
+  color: var(--ink-blue);
+  background: var(--circle) center / 100% 100% no-repeat;
+}
+
+/* ── writing ── */
+html.light .content main p { margin: 0 0 16px; }
+html.light .content main strong { font-weight: 700; }
+html.light .content main em { color: var(--ink-blue); }
+
+html.light .content main :is(h1, h2, h3, h4) {
+  font-family: var(--hand);
+  color: var(--ink);
+  line-height: 1.15;
+}
+html.light .content main :is(h1, h2, h3, h4) a.header { color: inherit; }
+html.light .content main h1 {
+  font-size: 50px;
+  font-weight: 600;
+  margin: 0 0 30px;
+  padding-bottom: 12px;
+  background: var(--underline) left bottom / min(100%, 360px) 12px no-repeat;
+}
+html.light .content main h2 {
+  width: fit-content;
+  font-size: 33px;
+  font-weight: 600;
+  margin: 46px 0 14px;
+  padding: 0 6px 7px 2px;
+  background: var(--underline-ink) left bottom / 100% 11px no-repeat;
+}
+html.light .content main h3 {
+  font-size: 26px;
+  font-weight: 600;
+  margin: 34px 0 10px;
+}
+html.light .content main h3::before { content: "› "; color: var(--terra); }
+html.light .content main h4 { font-size: 22px; font-weight: 500; color: var(--ink-soft); margin: 26px 0 8px; }
+
+html.light .content main a:not(.header) {
+  color: var(--ink-blue);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: rgba(52, 80, 122, .38);
+  text-underline-offset: 4px;
+}
+html.light .content main a:not(.header):hover { text-decoration-style: wavy; text-decoration-color: var(--ink-blue); }
+
+html.light .content main :is(ul, ol) { padding-left: 26px; margin: 0 0 16px; }
+html.light .content main ul { list-style: none; }
+html.light .content main ul > li { position: relative; }
+html.light .content main ul > li::before {
+  content: "–";
+  position: absolute;
+  left: -20px;
+  color: var(--terra);
+}
+html.light .content main ol > li::marker { font-family: var(--hand); font-weight: 600; font-size: 1.15em; color: var(--terra); }
+
+html.light .content main hr {
+  height: 14px;
+  margin: 34px auto;
+  border: 0;
+  background: var(--squiggle) center / 150px 12px no-repeat;
+}
+
+/* inline code: a tiny typed label */
+html.light .content main :not(pre) > code {
+  font-family: var(--type);
+  font-size: .8em;
+  padding: .12em .4em;
+  border-radius: 3px;
+  color: #4b3f2a;
+  background: rgba(214, 194, 146, .42);
+  box-shadow: inset 0 0 0 1px rgba(150, 120, 70, .16);
+}
+
+/* ── code: typed onto a tan slip of torn paper ── */
+html.light .content main pre {
+  position: relative;
+  z-index: 0;
+  margin: 26px -18px 30px;
+  padding: 0;
+  background: none;
+}
+html.light .content main pre::before {
+  content: "";
+  position: absolute;
+  inset: 7px 6px 3px;
+  z-index: -1;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(60, 50, 20, .18), 0 8px 18px -8px rgba(60, 50, 20, .4);
+}
+html.light .content main pre::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--mottle), var(--grain), var(--slip);
+  background-blend-mode: multiply;
+  box-shadow: inset 0 0 18px rgba(140, 100, 40, .18);
+  -webkit-mask-box-image: var(--torn-2) 24 fill / 20px round;
+}
+html.light .content main pre > code {
+  padding: 22px 30px 22px;
+  background: transparent;
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: #3b3324;
+}
+/* language label, from paper.js */
+html.light .content main pre > code[data-lang]::before {
+  content: attr(data-lang);
+  display: block;
+  margin: -4px 0 10px;
+  padding-bottom: 6px;
+  font-size: 12px;
+  color: #8f8064;
+  border-bottom: 1px dashed rgba(140, 115, 70, .35);
+}
+html.light pre > .buttons { top: 14px; right: 22px; }
+html.light pre > .buttons button { background: transparent; border: 0; color: #8f8064; }
+html.light pre > .buttons button.clip-button::before {
+  content: "copy";
+  font: 12px var(--type);
+  filter: none;
+}
+html.light pre > .buttons button.clip-button:hover::before { color: var(--terra); filter: none; }
+
+/* muted ink instead of bright syntax colours */
+html.light .content main pre .hljs-comment,
+html.light .content main pre .hljs-quote { color: #8f8668; font-style: italic; }
+html.light .content main pre :is(.hljs-keyword, .hljs-selector-tag, .hljs-built_in) { color: #3f5c86; }
+html.light .content main pre :is(.hljs-string, .hljs-symbol, .hljs-bullet) { color: #5d7a3c; }
+html.light .content main pre :is(.hljs-number, .hljs-literal, .hljs-meta, .hljs-params, .hljs-type) { color: #a0522d; }
+html.light .content main pre :is(.hljs-title, .hljs-section, .hljs-attr, .hljs-name, .hljs-variable, .hljs-tag) { color: #7a4a2a; }
+
+/* ── > notes: a scrap of paper with a pen quote mark ── */
+html.light .content main blockquote {
+  position: relative;
+  z-index: 0;
+  margin: 28px 12px 30px 22px;
+  padding: 20px 30px 20px 64px;
+  border: 0;
+  background: none;
+  font-family: "Newsreader", serif;
+  font-size: 20px;
+  line-height: 1.5;
+  color: var(--ink-blue);
+  transform: rotate(-.5deg);
+}
+html.light .content main blockquote:nth-of-type(even) { transform: rotate(.4deg); margin-left: 34px; }
+html.light .content main blockquote::before {
+  content: "";
+  position: absolute;
+  inset: 7px 6px 3px;
+  z-index: -1;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(60, 50, 20, .16), 0 10px 18px -10px rgba(60, 50, 20, .45);
+}
+html.light .content main blockquote::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    var(--quote-mark) 22px 20px / 28px no-repeat,
+    var(--grain),
+    var(--note);
+  background-blend-mode: normal, multiply, normal;
+  box-shadow: inset 0 0 16px rgba(170, 140, 60, .16);
+  -webkit-mask-box-image: var(--torn-2) 24 fill / 18px round;
+}
+html.light .content main blockquote p { margin: 0; }
+html.light .content main blockquote p + p { margin-top: 10px; }
+
+/* ── pressed ferns on the desk, tucked under the sheet ── */
+html.light .content::before,
+html.light .content::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  background: center / contain no-repeat;
+}
+html.light .content::before {
+  top: 330px;
+  left: calc(50% - 560px);
+  width: 250px;
+  height: 640px;
+  background-image: var(--fern-1);
+  transform: rotate(-24deg);
+}
+html.light .content::after {
+  top: 6px;
+  left: calc(50% + 340px);
+  width: 170px;
+  height: 400px;
+  background-image: var(--fern-2);
+  transform: rotate(32deg);
+}
+
+/* ── sidebar: another torn sheet, the contents page ── */
+html.light .sidebar { font-family: var(--hand); font-size: 20px; }
+html.light .sidebar::before,
+html.light .sidebar::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+}
+html.light .sidebar::before {
+  inset: 22px 18px 20px 20px;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(40, 50, 30, .2), 0 12px 26px -12px rgba(40, 50, 30, .45);
+}
+html.light .sidebar::after {
+  inset: 14px 12px 14px 14px;
+  background: var(--mottle), var(--grain), var(--paper);
+  background-blend-mode: multiply;
+  box-shadow: inset 0 0 22px rgba(160, 130, 80, .2);
+  -webkit-mask-box-image: var(--torn-mask);
+}
+html.light .sidebar .sidebar-scrollbox {
+  inset: 14px 12px 14px 14px;
+  padding: 26px 22px 30px 26px;
+  scrollbar-width: thin;
+}
+html.light .sidebar .sidebar-scrollbox::before {
+  content: "Android Notebook";
+  display: block;
+  padding: 2px 0 14px 42px;
+  margin-bottom: 8px;
+  font-size: 28px;
+  font-weight: 700;
+  white-space: nowrap;
+  color: var(--ink);
+  background:
+    var(--droid) left 2px / 32px no-repeat,
+    var(--squiggle) left bottom / 130px 10px no-repeat;
+}
+html.light .sidebar ol.chapter { counter-reset: ch -1; }
+html.light .sidebar ol.chapter > li.chapter-item { counter-increment: ch; margin-top: 6px; line-height: 1.25; }
+html.light .sidebar ol.chapter > li.chapter-item > .chapter-link-wrapper > a {
+  display: inline-block;
+  padding: 3px 14px 3px 38px;
+  margin-left: -12px;
+  text-indent: -26px;
+  color: var(--ink);
+}
+html.light .sidebar ol.chapter > li.chapter-item > .chapter-link-wrapper > a::before {
+  content: counter(ch, decimal-leading-zero);
+  display: inline-block;
+  width: 26px;
+  text-indent: 0;
+  font: 12px var(--type);
+  color: var(--ink-soft);
+}
+html.light .sidebar ol.chapter > li.chapter-item:first-child > .chapter-link-wrapper > a::before { content: "~"; }
+html.light .sidebar .chapter li a:hover { color: var(--ink-blue); }
+html.light .sidebar .chapter li a.active {
+  color: var(--ink);
+  font-weight: 700;
+  background: var(--circle) center / 100% 100% no-repeat;
+}
+html.light .sidebar .on-this-page {
+  margin: 4px 0 8px 30px;
+  padding-left: 0;
+  border: 0;
+  font-size: 17px;
+}
+html.light .sidebar .on-this-page a { color: var(--ink-soft); }
+html.light .sidebar .on-this-page a::before { content: "– "; color: var(--terra); }
+html.light .sidebar .on-this-page a.current-header { color: var(--ink-blue); }
+html.light .sidebar-resize-indicator { display: none; }
+
+/* chapter arrows */
+html.light .nav-chapters { color: #6b715f; }
+html.light .nav-chapters:hover { color: var(--ink); background: transparent; }
+
+/* ferns need room, hide them on smaller screens */
+@media (max-width: 1500px) {
+  html.light.sidebar-visible .content::before,
+  html.light.sidebar-visible .content::after { display: none; }
+}
+@media (max-width: 1200px) {
+  html.light .content::before,
+  html.light .content::after { display: none; }
+}
+
+/* phone: the sheet fills the screen */
+@media (max-width: 640px) {
+  html.light .content main { margin: 4px -2px 30px; padding: 30px 22px 40px; font-size: 17px; }
+  html.light .content main h1 { font-size: 40px; }
+  html.light .content main::after {
+    background:
+      var(--coffee) right -60px top 40px / 150px no-repeat,
+      var(--mottle), var(--grain), var(--paper);
+    background-blend-mode: multiply;
+  }
+  html.light .nb-head { font-size: 11px; gap: 10px; }
+  html.light .content main pre { margin-left: -12px; margin-right: -12px; }
+  html.light .content main pre > code { padding: 20px 20px; }
+  html.light .content main blockquote { margin-left: 4px; margin-right: 0; padding-left: 54px; }
+}
+
+@media print {
+  html.light .content::before, html.light .content::after,
+  html.light .content main::before, html.light .content main::after { display: none; }
+}
