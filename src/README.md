@@ -6,7 +6,7 @@ Every chapter will got maintain by me, and may be i will got some contributor in
 
 hope you like the design haha since it dont look like fit for a security resesearcher book :D
 
-> i wrote by my hand then using AI to format the senctence and grammar, most of the time i spend for this book not for writing, `i spend more on thinking how to explain and make you easy to understand to let you seeing example clearly `
+> i wrote by my hand then using AI to format the senctence and grammar, most of the time i spend for this book not for writing, `i spend more on thinking how to explain and make you easy to understand to let you seeing example clearly`. if you like it, give the repo a star on github haha
 
 ## chapters
 
