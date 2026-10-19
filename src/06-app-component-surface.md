@@ -1,4 +1,6 @@
 ## Android App
+> this chapter is just a brief one. later i will make a detailed chapter that looks into the internal code of all these concepts
+
 sure, first thing everybody thinks about when attacking Android is attacking the app first
 
 ### App component
