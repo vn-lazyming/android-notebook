@@ -1,0 +1,29 @@
+
+; ===== counterd: native AIDL service, lab =====
+(type counterd)
+(roletype object_r counterd)
+(typeattributeset domain (counterd))
+(typeattributeset coredomain (counterd))
+(typeattributeset binderservicedomain (counterd))
+
+(type counterd_exec)
+(roletype object_r counterd_exec)
+(typeattributeset file_type (counterd_exec))
+(typeattributeset exec_type (counterd_exec))
+(typeattributeset system_file_type (counterd_exec))
+
+; init_daemon_domain(counterd)
+(allow init counterd_exec (file (read getattr map execute open)))
+(allow init counterd (process (transition)))
+(allow counterd counterd_exec (file (read getattr map execute open entrypoint)))
+(dontaudit init counterd (process (noatsecure)))
+(allow init counterd (process (siginh rlimitinh)))
+(typetransition init counterd_exec process counterd)
+
+; add_service(counterd, counterd_service)
+(type counterd_service)
+(roletype object_r counterd_service)
+(typeattributeset service_manager_type (counterd_service))
+(allow counterd servicemanager (binder (call transfer)))
+(allow servicemanager counterd (binder (call transfer)))
+(allow counterd counterd_service (service_manager (add find)))

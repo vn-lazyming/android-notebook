@@ -20,4 +20,4 @@ CLAUDE.md
 # lab build output, build.sh and fetch-headers.sh regenerate all of it
 lab/*/gen/
 lab/*/aosp-headers/
-lab/native-service/counterd
+lab/init-service/counterd

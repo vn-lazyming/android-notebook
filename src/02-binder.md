@@ -12,12 +12,12 @@ binder provides the features from the kernel side, mostly transferring data betw
 
 > note: dont miss this part. binder provides the features to create a seamless function call, it doesnt make the call itself. that job drop to AIDL, who will use binder to do it.
 
-fun fact: on android some system services still use unix domain socket, but far less than the one using binder through AIDL, you also will see me make explain about this in chapter attack_surface-native-service.md
+fun fact: on android some system services still use unix domain socket, but far less than the one using binder through AIDL, you also will see me make explain about this in [chapter 5](05-attack_surface-init-service.md)
 
 from google doc:
 > In binder terms, the calling process is considered the client and its endpoint is called the binder proxy or proxy. Conversely, the process being called is the server and its endpoint is called the binder node or node.
 
-Binder (IPC : inter-process communication) just provides the tools to do seamless function calling between processes. the one using those tools is called AIDL (Android Interface Definition Language), we will continue with it in [the next chapter](03-aidl.md).
+Binder (IPC : inter-process communication) just provides the tools to do seamless function calling between processes. the one using those tools is called AIDL (Android Interface Definition Language), we will continue with it in [the next chapter](03-init-service-part1-aidl.md).
 
 ## random knowlege 
 yea maybe drop into kernel source code to learn how it work under the hood is fun, but currently have a lot of things want to learn :D, so may be i will do details Binder analysis later the infomation above is enogh for you to learning next step and i will drop here some random knowlege about binder you can reading it for fun

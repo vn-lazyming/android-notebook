@@ -49,7 +49,7 @@ ming@lazy:~ $ adb shell cat /proc/1/comm
 init
 ```
 
-so on android the first userspace process is not systemd. google wrote their own `init` binary instead — it does roughly the same job as systemd but is much smaller and built for a phone. you can read the source here: [system/core/init](https://cs.android.com/android/platform/superproject/main/+/main:system/core/init/), and the `.rc` language reference is [init/README.md](https://cs.android.com/android/platform/superproject/main/+/main:system/core/init/README.md).
+so on android the first userspace process is not systemd. google wrote their own `init` binary instead, it does roughly the same job as systemd but is much smaller and built for a phone. you can read the source here: [system/core/init](https://cs.android.com/android/platform/superproject/main/+/main:system/core/init/), and the `.rc` language reference is [init/README.md](https://cs.android.com/android/platform/superproject/main/+/main:system/core/init/README.md).
 
 in systemd you wrote a unit file you declare what your service needs (After=network.target) and let systemd work out when to run it. in an .rc file you declare when it runs (class main, on boot) and work out the order yourself.
 
@@ -228,4 +228,4 @@ ming@lazy:~ $ adb shell cat /proc/net/unix | grep -i tombstoned_crash
 | St | `01` | no connection open yet |
 | Inode | `26663` | |
 
-next chapter we will discover the first attack surface is Native Service.
+next chapter we will discover the first attack surface is Init Service.

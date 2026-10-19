@@ -2,24 +2,21 @@
 # builds counterd for the x86_64 cuttlefish device
 set -eu
 
-NDK=$HOME/Android/Sdk/ndk/23.2.8568313/toolchains/llvm/prebuilt/linux-x86_64/bin
+NDK=$HOME/Android/Sdk/ndk/30.0.16248370/toolchains/llvm/prebuilt/linux-x86_64/bin
 AIDL=$HOME/Android/Sdk/build-tools/36.1.0/aidl
 
-# the binder headers aidl expects, see the comment in fetch-headers.sh
+# the C++ helper headers aidl generates against, which no NDK ships. see fetch-headers.sh
 [ -d aosp-headers ] || ./fetch-headers.sh
 
 # .aidl -> C++, 4 files under gen/
 rm -rf gen
 "$AIDL" --lang=ndk -o gen -h gen/include -I . com/example/ICounter.aidl
 
-# the NDK stub exports 102 functions and none of them is AServiceManager_*,
-# so we link against the real one off the device
+# the NDK stub exports no AServiceManager_*, so link against the real one off the device
 [ -f libbinder_ndk.so ] || adb pull /system/lib64/libbinder_ndk.so .
 
-# NDK 23 predates these two, and binder_manager.h names them
-"$NDK/x86_64-linux-android31-clang++" -std=c++17 -O2 \
-    -D__ANDROID_API_U__=34 -D__ANDROID_API_V__=35 \
-    -static-libstdc++ \
+# android37 matches the device, so nothing about api levels needs patching
+"$NDK/x86_64-linux-android37-clang++" -O2 -static-libstdc++ \
     -Iaosp-headers -Igen/include \
     counterd.cpp gen/com/example/ICounter.cpp \
     libbinder_ndk.so -llog \

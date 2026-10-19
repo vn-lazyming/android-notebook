@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 614" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#34362f">
+  <!-- one setValue(2, 42) call. columns and step numbers follow Figure 1 of
+       https://source.android.com/docs/core/architecture/ipc/binder-overview -->
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#34362f"/></marker>
+    <marker id="o" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10" fill="none" stroke="#34362f"/></marker>
+  </defs>
+
+  <!-- process boundaries -->
+  <g fill="#34362f" fill-opacity="0.05" stroke="#808173" stroke-dasharray="4 3">
+    <rect x="10"  y="8" width="320" height="596" rx="6"/>
+    <rect x="350" y="8" width="180" height="596" rx="6"/>
+    <rect x="550" y="8" width="340" height="596" rx="6"/>
+  </g>
+  <g font-size="12" fill="#808173" text-anchor="middle">
+    <text x="170" y="24">client process (A)</text>
+    <text x="440" y="24">kernel</text>
+    <text x="720" y="24">counterd process (B)</text>
+  </g>
+
+  <!-- heads -->
+  <g stroke="#34362f" fill="none">
+    <rect x="20"  y="36" width="120" height="52"/>
+    <rect x="180" y="36" width="140" height="52"/>
+    <rect x="370" y="36" width="140" height="52"/>
+    <rect x="565" y="36" width="150" height="52"/>
+    <rect x="740" y="36" width="140" height="52" stroke="#34507a" stroke-width="2"/>
+  </g>
+  <g text-anchor="middle">
+    <text x="80"  y="54" font-weight="bold">client code</text>
+    <text x="250" y="54" font-weight="bold">BpCounter</text>
+    <text x="440" y="54" font-weight="bold">binder driver</text>
+    <text x="640" y="54" font-weight="bold">BnCounter</text>
+    <text x="810" y="54" font-weight="bold" fill="#34507a">Counter</text>
+    <g font-size="12">
+      <text x="80"  y="68">the caller</text>
+      <text x="250" y="68">binder proxy</text>
+      <text x="440" y="68">/dev/binder</text>
+      <text x="640" y="68">binder node</text>
+      <text x="810" y="68" fill="#34507a">server code</text>
+    </g>
+    <g font-size="11" fill="#808173">
+      <text x="80"  y="81">yours</text>
+      <text x="250" y="81">ICounter.cpp, generated</text>
+      <text x="440" y="81">kernel</text>
+      <text x="640" y="81">ICounter.cpp, generated</text>
+      <text x="810" y="81" fill="#34507a">counterd.cpp, yours</text>
+    </g>
+  </g>
+
+  <!-- lifelines -->
+  <g stroke="#808173" stroke-dasharray="3 3">
+    <line x1="80"  y1="88" x2="80"  y2="594"/>
+    <line x1="250" y1="88" x2="250" y2="594"/>
+    <line x1="440" y1="88" x2="440" y2="594"/>
+    <line x1="640" y1="88" x2="640" y2="594"/>
+    <line x1="810" y1="88" x2="810" y2="594"/>
+  </g>
+
+  <!-- activation bars -->
+  <g fill="#f6f1e4" stroke="#34362f">
+    <rect x="75"  y="110" width="10" height="454"/>
+    <rect x="245" y="120" width="10" height="424"/>
+    <rect x="435" y="218" width="10" height="111"/>
+    <rect x="635" y="324" width="10" height="170"/>
+    <rect x="805" y="414" width="10" height="35"/>
+  </g>
+
+  <!-- arrows -->
+  <g stroke="#34362f" fill="none">
+    <line x1="85"  y1="120" x2="245" y2="120" marker-end="url(#a)"/>   <!-- 1 -->
+    <path d="M255,135 h40 v30 h-40" marker-end="url(#a)"/>              <!-- 2 pack -->
+    <line x1="255" y1="218" x2="435" y2="218" marker-end="url(#a)"/>   <!-- 2 submit -->
+    <line x1="445" y1="324" x2="635" y2="324" marker-end="url(#a)"/>   <!-- 6 -->
+    <path d="M645,349 h40 v35 h-40" marker-end="url(#a)"/>              <!-- 7 -->
+    <line x1="645" y1="414" x2="805" y2="414" marker-end="url(#a)"/>   <!-- 8 -->
+    <g stroke-dasharray="5 3">
+      <line x1="805" y1="449" x2="645" y2="449" marker-end="url(#o)"/> <!-- 9 -->
+      <line x1="635" y1="494" x2="445" y2="494" marker-end="url(#o)"/> <!-- 9 -->
+      <line x1="435" y1="524" x2="255" y2="524" marker-end="url(#o)"/> <!-- 9 -->
+      <line x1="245" y1="554" x2="85"  y2="554" marker-end="url(#o)"/> <!-- 10 -->
+    </g>
+  </g>
+
+  <!-- labels, with a paper coloured halo so lines do not cut through them -->
+  <g font-family="Courier, monospace" font-size="14" stroke="#f6f1e4" stroke-width="4" paint-order="stroke" stroke-linejoin="round">
+    <text x="165" y="114" text-anchor="middle">setValue(2, 42)</text>
+    <text x="302" y="147">AParcel_writeData(2)</text>
+    <text x="302" y="162">AParcel_writeData(42)</text>
+    <text x="345" y="196" text-anchor="middle">AIBinder_transact(</text>
+    <text x="345" y="211" text-anchor="middle">FIRST_CALL+0, [2|42])</text>
+    <text x="540" y="342" text-anchor="middle">transaction</text>
+    <text x="692" y="361">switch (code)</text>
+    <text x="692" y="377">readData x2 → 2, 42</text>
+    <text x="725" y="408" text-anchor="middle">setValue(2, 42)</text>
+    <text x="810" y="469" font-size="12" fill="#34507a" text-anchor="middle">values_[2] = 42</text>
+    <text x="725" y="443" text-anchor="middle">ok</text>
+    <text x="540" y="488" text-anchor="middle">reply [status ok]</text>
+    <text x="345" y="518" text-anchor="middle">reply</text>
+    <text x="165" y="548" text-anchor="middle">ScopedAStatus ok</text>
+  </g>
+  <g font-size="12" stroke="#f6f1e4" stroke-width="4" paint-order="stroke" stroke-linejoin="round">
+    <text x="455" y="236">find who hosts</text>
+    <text x="455" y="250">the node</text>
+    <text x="455" y="272">copy it into B</text>
+    <text x="455" y="298">wake a thread</text>
+    <text x="455" y="312">in B's pool</text>
+  </g>
+
+  <!-- step numbers, same as Google's figure -->
+  <g font-size="12" font-weight="bold" text-anchor="middle">
+    <g fill="#f6f1e4" stroke="#34362f">
+      <circle cx="80"  cy="120" r="10"/>
+      <circle cx="250" cy="150" r="10"/>
+      <circle cx="420" cy="244" r="10"/>
+      <circle cx="420" cy="268" r="10"/>
+      <circle cx="420" cy="305" r="10"/>
+      <circle cx="440" cy="324" r="10"/>
+      <circle cx="640" cy="366" r="10"/>
+      <circle cx="640" cy="414" r="10"/>
+      <circle cx="810" cy="449" r="10"/>
+      <circle cx="640" cy="494" r="10"/>
+      <circle cx="440" cy="524" r="10"/>
+      <circle cx="250" cy="554" r="10"/>
+    </g>
+    <text x="80"  y="124">1</text>
+    <text x="250" y="154">2</text>
+    <text x="420" y="248">3</text>
+    <text x="420" y="272">4</text>
+    <text x="420" y="309">5</text>
+    <text x="440" y="328">6</text>
+    <text x="640" y="370">7</text>
+    <text x="640" y="418">8</text>
+    <text x="810" y="453">9</text>
+    <text x="640" y="498">9</text>
+    <text x="440" y="528">9</text>
+    <text x="250" y="558">10</text>
+  </g>
+</svg>

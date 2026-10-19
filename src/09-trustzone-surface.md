@@ -1,3 +1,0 @@
-# TrustZone surface
-
-comming soon
