@@ -48,9 +48,18 @@ html.light {
 /* ── desk ── (on <html> so it covers the whole window, not just the body) */
 html.light {
   background:
-    radial-gradient(ellipse 120% 90% at 55% 35%, transparent 55%, rgba(48, 58, 36, .16)) fixed,
     var(--linen),
     var(--desk);
+}
+/* the vignette sits on its own fixed layer. as a `fixed` background on <html> it made
+   chrome repaint the whole window on every scroll frame, which is what made scrolling lag */
+html.light::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(ellipse 120% 90% at 55% 35%, transparent 55%, rgba(48, 58, 36, .16));
 }
 html.light body,
 html.light .page-wrapper { background: transparent; }

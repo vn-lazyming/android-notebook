@@ -196,7 +196,7 @@ so we can add `disabled` to the .rc, then counterd does not start at boot, it on
 
 > this part is write with help of claude, i realy want to wrote all this my self but i got a fever to day so hope you still love it
 
-i highly recomend you to reading my [selinux chapter](07-selinux.md) first its perty good :D
+i highly recomend you to reading my [selinux chapter](08-selinux.md) first its perty good :D
 
 if you just push the binary and the .rc and reboot, `addService` fails. servicemanager will check selinux before it accepts, so we need to adding selinux policy for our init service
 
@@ -262,7 +262,7 @@ in real AOSP you do not write all of this by hand, the comments in `counterd.cil
 
 ## run it
 
-one script does everything on [cuttlefish](09-lab-cuttlefish.md):
+one script does everything on [cuttlefish](10-lab-cuttlefish.md):
 
 ```console
 $ ./setup-policy.sh

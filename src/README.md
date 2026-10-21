@@ -12,10 +12,11 @@ hope you like the design haha since it dont look like fit for a security resesea
 
 - [How everything starts](01-init-and-rc-file.md) — ready
 - [Binder](02-binder.md) — ready
-- [Init service, part 1: AIDL](03-init-service-part1-aidl.md) — coming soon
-- [Init service, part 2: the service](04-init-service-part2-service.md) — coming soon
+- [Init service, part 1: AIDL](03-init-service-part1-aidl.md) — ready
+- [Init service, part 2: the service](04-init-service-part2-service.md) — ready
 - [Init service attack surface](05-attack_surface-init-service.md) — coming soon
-- [App component surface](06-app-component-surface.md) — ready
-- [SELinux](07-selinux.md) — ready
-- [SELinux appendix](08-selinux-appendix.md) — coming soon
-- [Lab: Cuttlefish](09-lab-cuttlefish.md) — ready
+- [Zygote](06-zygote.md) — coming soon
+- [App component surface](07-app-component-surface.md) — ready
+- [SELinux](08-selinux.md) — ready
+- [SELinux appendix](09-selinux-appendix.md) — coming soon
+- [Lab: Cuttlefish](10-lab-cuttlefish.md) — ready
